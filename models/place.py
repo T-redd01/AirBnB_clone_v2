@@ -18,8 +18,23 @@ place_amenity = Table('place_amenity', Base.metadata,
 
 
 class Place(BaseModel, Base):
-    '''
-        Define the class Place that inherits from BaseModel.
+    ''' Define the class Place that inherits from BaseModel.
+
+        Attributes:
+            __tablename__: name of table
+            city_id: foreign key to cities table
+            user_id: foreign key to user table
+            name: name of place
+            description: about the place
+            number_rooms: number of rooms at place
+            number_bathrooms: bathrooms at places
+            max_guest: max num of guest
+            price_by_night: cost ti stay
+            latitude: globe / earth axis point
+            longitude: globe / earth acis point
+            reviews: what previous users liked / disliked
+            amenity_ids: amenity at place
+            amenities: more abut amenities
     '''
     __tablename__ = "places"
 

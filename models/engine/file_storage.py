@@ -26,6 +26,12 @@ class FileStorage:
 
         If a cls is specified, returns a dictionary of objects of that type.
         Otherwise, returns the __objects dictionary.
+
+            Args:
+                 cls: obj type to search or filter
+
+            Return:
+                explained above
         """
         if cls is not None:
             if type(cls) == str:
@@ -38,7 +44,11 @@ class FileStorage:
         return self.__objects
 
     def new(self, obj):
-        """Set in __objects obj with key <obj_class_name>.id."""
+        """Set in __objects obj with key <obj_class_name>.id.
+
+            Args:
+                obj: object to add
+        """
         self.__objects["{}.{}".format(type(obj).__name__, obj.id)] = obj
 
     def save(self):
@@ -59,7 +69,11 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """Delete a given object from __objects, if it exists."""
+        """Delete a given object from __objects, if it exists.
+
+            Args:
+                obj: obj to delete
+        """
         try:
             del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
         except (AttributeError, KeyError):

@@ -8,8 +8,16 @@ from sqlalchemy.orm import relationship
 
 
 class User(BaseModel, Base):
-    '''
-        Definition of the User class
+    ''' Definition of the User class
+
+        Attributes:
+            __tablename__: name of table
+            email: user email
+            password: user password
+            first_name: user first name
+            last_name: user last name
+            places: places user has been
+            reviews: reviews user has made
     '''
     __tablename__ = "users"
 

@@ -42,6 +42,9 @@ class DBStorage:
 
         If cls is None, queries all types of objects.
 
+        Args:
+            cls: class onject for searching / filtering
+
         Return:
             Dict of queried classes in the format <class name>.<obj id> = obj.
         """
@@ -59,7 +62,11 @@ class DBStorage:
         return {"{}.{}".format(type(o).__name__, o.id): o for o in objs}
 
     def new(self, obj):
-        """Add obj to the current database session."""
+        """Add obj to the current database session.
+
+            Args:
+                obj: object to save to db
+        """
         self.__session.add(obj)
 
     def save(self):
@@ -67,7 +74,11 @@ class DBStorage:
         self.__session.commit()
 
     def delete(self, obj=None):
-        """Delete obj from the current database session."""
+        """Delete obj from the current database session.
+
+            Args:
+                obj: obj to delete from db
+        """
         if obj is not None:
             self.__session.delete(obj)
 
