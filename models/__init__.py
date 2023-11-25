@@ -2,10 +2,10 @@
 """
 Initialization file for python3 package
 """
-from sys import getenv
+import os
 
 
-storage_type = getenv("HBNB_TYPE_STORAGE")
+storage_type = os.getenv("HBNB_TYPE_STORAGE")
 
 if storage_type == "db":
     from models.engine.db_storage import DBStorage

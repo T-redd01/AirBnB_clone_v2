@@ -3,7 +3,7 @@
     Define the class Place.
 '''
 from os import getenv
-from models import BaseModel, Base
+from models.base_model import BaseModel, Base
 from sqlalchemy import Table, Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
 

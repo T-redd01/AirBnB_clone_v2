@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship
 
 class State(BaseModel, Base):
     """ State class for state objects
-        
+
         Attributes:
             __tablename__: name of table
             name: name of state
@@ -18,7 +18,7 @@ class State(BaseModel, Base):
     if storage_type == "db":
         name = Column(String(128),
                       nullable=False)
-        cities = relationship("City", backref="state"
+        cities = relationship("City", backref="state",
                               cascade='all, delete, delete-orphan')
     else:
         name = ""
