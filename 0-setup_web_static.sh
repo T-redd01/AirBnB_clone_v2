@@ -1,75 +1,32 @@
 #!/usr/bin/env bash
-# Sets up a web server for deployment of web_static.
+# setup server for html stati cpages
 
-apt-get update
-apt-get install -y nginx
+sudo apt-get update
+sudo apt-get install -y nginx
 
-mkdir -p /data/web_static/releases/test/
+mkdir -p /data/web_static/releases/
 mkdir -p /data/web_static/shared/
-echo "Hello World" > /data/web_static/releases/test/index.html
-ln -sf /data/web_static/releases/test/ /data/web_static/current
+mkdir -p /data/web_static/releases/test/
+echo "Hello World!" > /data/web_static/releases/test/index.html
 
-chown -R ubuntu /data/
-chgrp -R ubuntu /data/
+ln -s /data/web_static/releases/test/ /data/web_static/current
 
-printf %s "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    add_header X-Served-By $HOSTNAME;
-    root   /var/www/html;
-    index  index.html index.htm;
+sudo chown -R "ubuntu" /data/
+sudo chgrp -R "ubuntu" /data/
 
-    location /hbnb_static {
-        alias /data/web_static/current;
-        index index.html index.htm;
-    }
+sudo cp -a /etc/nginx/sites-available/default{,.copy}
+sudo printf "server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
 
-    location /redirect_me {
-        return 301 http://cuberule.com/;
-    }
+	root /data/web_static/current;
+	server_name _;
 
-    error_page 404 /404.html;
-    location /404 {
-      root /var/www/html;
-      internal;
-    }
+	location /hbnb_static {
+		alias /;
+		try_files $uri $uri/ =404;
+		add_header X-Served-By $HOSTNAME;
+	}
 }" > /etc/nginx/sites-available/default
 
-service nginx restart#!/usr/bin/env bash
-# Sets up a web server for deployment of web_static.
-
-apt-get update
-apt-get install -y nginx
-
-mkdir -p /data/web_static/releases/test/
-mkdir -p /data/web_static/shared/
-echo "Hello World" > /data/web_static/releases/test/index.html
-ln -sf /data/web_static/releases/test/ /data/web_static/current
-
-chown -R ubuntu /data/
-chgrp -R ubuntu /data/
-
-printf %s "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    add_header X-Served-By $HOSTNAME;
-    root   /var/www/html;
-    index  index.html index.htm;
-
-    location /hbnb_static {
-        alias /data/web_static/current;
-        index index.html index.htm;
-    }
-
-    location /redirect_me {
-        return 301 http://cuberule.com/;
-    }
-
-    error_page 404 /404.html;
-    location /404 {
-      root /var/www/html;
-      internal;
-    }
-}" > /etc/nginx/sites-available/default
-
-service nginx restart
+nginx -s reload
