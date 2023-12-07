@@ -14,8 +14,8 @@ ln -s /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R "ubuntu" /data/
 sudo chgrp -R "ubuntu" /data/
 
-sudo cp -a /etc/nginx/sites-available/default{,.copy}
-sudo printf "server {
+#sudo cp -a /etc/nginx/sites-available/default{,.copy}
+printf "server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 
@@ -27,6 +27,6 @@ sudo printf "server {
 		try_files $uri $uri/ =404;
 		add_header X-Served-By $HOSTNAME;
 	}
-}" > /etc/nginx/sites-available/default
+}\n" > /etc/nginx/sites-available/default
 
 nginx -s reload
